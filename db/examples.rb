@@ -10,10 +10,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# %w(antony jeff matt jason).each do |name|
-#   email = "#{name}@#{name}.com"
-#   next if User.exists? email: email
-#   User.create!(email: email,
-#                password: 'abc123',
-#                password_confirmation: nil)
-# end
+%w(alice bob charlie dana eliot franky gloria henry iulia).each do |name|
+  doctor_params = {
+    given_name: name,
+    family_name: 'mcdreamy'
+  }
+  next if Doctor.exists? doctor_params
+  Doctor.create! doctor_params
+end
+
+%w(alice bob charlie dana eliot franky gloria henry iulia).each do |name|
+  full_name = "#{name} McFace"
+  next if Patient.exists? name: full_name
+  Patient.create!(name: full_name,
+                  diagnosis: 'Addicted to Love',
+                  born_on: '1986-01-01',
+                  doctor: Doctor.all.sample)
+end
